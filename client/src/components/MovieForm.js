@@ -1,6 +1,5 @@
 import { useState } from "react";
 import styled from "styled-components";
-
 function MovieForm() {
   const [formData, setFormData] = useState({
     title: "",
@@ -13,7 +12,6 @@ function MovieForm() {
     discount: false,
     female_director: false,
   });
-
   function handleSubmit(e) {
     e.preventDefault();
     fetch("/movies", {
@@ -25,6 +23,18 @@ function MovieForm() {
     })
       .then((response) => response.json())
       .then((newMovie) => console.log(newMovie));
+
+    setFormData({
+      title: "",
+      year: new Date().getFullYear(),
+      length: "0",
+      director: "",
+      description: "",
+      poster_url: "",
+      category: "",
+      discount: false,
+      female_director: false,
+    });
   }
 
   function handleChange(e) {
@@ -35,7 +45,6 @@ function MovieForm() {
       [e.target.id]: value,
     });
   }
-
   return (
     <Wrapper>
       <form onSubmit={handleSubmit}>
@@ -130,19 +139,16 @@ function MovieForm() {
     </Wrapper>
   );
 }
-
 const Wrapper = styled.section`
   max-width: 500px;
   margin: 32px auto;
   padding: 32px;
 `;
-
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 16px;
 `;
-
 const SubmitButton = styled.button`
   background: blue;
   color: yellow;
@@ -153,5 +159,4 @@ const SubmitButton = styled.button`
   padding: 8px 16px;
   cursor: pointer;
 `;
-
 export default MovieForm;
